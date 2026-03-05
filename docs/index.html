@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地震學深度探索：從科學建模到社會風險</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-main: #e0e0e0;
+            --text-muted: #b0b0b0;
+            --telecom-blue: #00d4ff;
+            --warning-orange: #ff8c00;
+            --accent-green: #00ff88;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+            border-bottom: 2px solid #333;
+            padding-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, var(--telecom-blue), var(--warning-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .chapter-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            border-left: 5px solid var(--telecom-blue);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            color: var(--telecom-blue);
+            margin-bottom: 1.5rem;
+            font-size: 1.6rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .img-placeholder {
+            background: #111;
+            border: 1px dashed #444;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .img-desc {
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .formula {
+            background: #222;
+            padding: 1.5rem;
+            border-radius: 8px;
+            color: var(--warning-orange);
+            margin: 1rem 0;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+
+        .highlight { color: var(--warning-orange); font-weight: bold; }
+
+        /* 聊天室區塊 */
+        .chat-box {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: #222;
+            border: 1px solid #444;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        .chat-header { background: var(--telecom-blue); padding: 10px; border-radius: 15px 15px 0 0; color: #000; font-weight: bold; }
+        .chat-history { height: 250px; overflow-y: auto; padding: 10px; font-size: 0.9rem; }
+        .chat-input-area { display: flex; padding: 10px; gap: 5px; }
+        .chat-input-area input { flex: 1; background: #333; border: none; border-radius: 5px; color: #fff; padding: 5px 10px; }
+        .chat-input-area button { background: var(--warning-orange); border: none; border-radius: 5px; padding: 5px 15px; cursor: pointer; }
+
+        @media (max-width: 768px) {
+            .chat-box { display: none; }
+            body { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>地震學：從觀測理論到社會應用</h1>
+    <p>資深地震學家帶你導讀經典教材核心內容</p>
+</header>
+
+<main id="main-content">
+    
+    <div class="chapter-card">
+        <h2>1. 地震學的研究範疇</h2>
+        <p>地震學研究<span class="highlight">固體地球中的彈性波</span>，涵蓋波源機制、傳播路徑與地球結構掃描。</p>
+    </div>
+
+    <div class="chapter-card">
+        <h2>2. 能量衰減：公式解析</h2>
+        <div class="formula">
+            $$ a(M, r) = b \cdot 10^{cM} \cdot r^{-d} $$
+        </div>
+        <p>此公式描述了地表加速度如何隨震級與距離衰減。其核心原因包含：</p>
+        <ol>
+            <li><strong>幾何擴散 (Geometric Spreading)</strong></li>
+            <li><strong>散射 (Scattering)</strong></li>
+            <li><strong>內在衰減 (Intrinsic Attenuation)</strong></li>
+        </ol>
+    </div>
+
+    <div class="chapter-card">
+        <h2>3. 地震學與地緣政治</h2>
+        <p>區分自然地震與核爆的關鍵在於：</p>
+        <div class="formula">
+            $$ M_s / m_b \text{ Ratio Analysis} $$
+        </div>
+        <p>核爆產生的 \( P \) 波極強，但幾乎不產生 \( S \) 波，這是科學監測的終極防線。</p>
+    </div>
+
+</main>
+
+<div class="chat-box">
+    <div class="chat-header">地震學家問答室</div>
+    <div class="chat-history" id="chat-hist">
+        <div><strong>Expert:</strong> 你好！代碼已優化為支援 LaTeX 渲染。還有什麼需要微調的嗎？</div>
+    </div>
+    <div class="chat-input-area">
+        <input type="text" id="user-input" placeholder="請問..." />
+        <button onclick="askExpert()">發送</button>
+    </div>
+</div>
+
+<script>
+    function askExpert() {
+        const input = document.getElementById('user-input');
+        const hist = document.getElementById('chat-hist');
+        if (!input.value) return;
+
+        const userMsg = document.createElement('div');
+        userMsg.innerHTML = `<strong>You:</strong> ${input.value}`;
+        hist.appendChild(userMsg);
+
+        const val = input.value;
+        input.value = '';
+
+        setTimeout(() => {
+            const expertMsg = document.createElement('div');
+            let response = "這是一個非常專業的問題！在地震學建模中，數據的精確性決定了預警的反應時間。";
+            expertMsg.innerHTML = `<strong>Expert:</strong> ${response}`;
+            hist.appendChild(expertMsg);
+            hist.scrollTop = hist.scrollHeight;
+        }, 500);
+    }
+</script>
+
+</body>
+</html>
