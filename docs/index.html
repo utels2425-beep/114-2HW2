@@ -13,11 +13,11 @@
             --telecom-blue: #00d4ff;
             --warning-orange: #ff8c00;
             --accent-green: #00ff88;
-            --sidebar-width: 280px;
+            --sidebar-width: 300px;
             --transition-speed: 0.4s;
         }
 
-        /* 基礎重置與流體感 */
+        /* 基礎設置 */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
         body {
@@ -30,11 +30,11 @@
             overflow-x: hidden;
         }
 
-        /* --- 專業側邊摺疊導覽 --- */
+        /* --- 左側摺疊目錄 --- */
         #sidebar {
             width: var(--sidebar-width);
             height: 100vh;
-            background: rgba(20, 20, 20, 0.9);
+            background: rgba(20, 20, 20, 0.95);
             backdrop-filter: blur(20px);
             border-right: 1px solid #333;
             position: fixed;
@@ -42,12 +42,10 @@
             top: 0;
             z-index: 1000;
             transition: transform var(--transition-speed) cubic-bezier(0.4, 0, 0.2, 1);
-            padding: 5rem 1.5rem 2rem;
+            padding: 5.5rem 1.5rem 2rem;
             overflow-y: auto;
         }
-        #sidebar.collapsed {
-            transform: translateX(-100%);
-        }
+        body.sidebar-collapsed #sidebar { transform: translateX(-100%); }
         #sidebar h3 {
             color: var(--warning-orange);
             font-size: 1.1rem;
@@ -57,7 +55,7 @@
             letter-spacing: 1px;
         }
         #sidebar ul { list-style: none; }
-        #sidebar li { margin-bottom: 15px; }
+        #sidebar li { margin-bottom: 8px; }
         #sidebar a {
             color: var(--text-muted);
             text-decoration: none;
@@ -67,13 +65,13 @@
             padding: 10px;
             border-radius: 8px;
         }
-        #sidebar li.active a, #sidebar a:hover {
+        #sidebar a:hover {
             color: var(--telecom-blue);
             background: rgba(0, 212, 255, 0.1);
             padding-left: 15px;
         }
 
-        /* 導覽切換按鈕 */
+        /* 摺疊切換按鈕 */
         #toggle-btn {
             position: fixed;
             left: 20px;
@@ -90,11 +88,11 @@
             align-items: center;
             justify-content: center;
             box-shadow: 0 4px 20px rgba(0,212,255,0.4);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: 0.3s;
         }
         #toggle-btn:hover { background: var(--warning-orange); transform: scale(1.1); }
 
-        /* --- 內容區佈局 --- */
+        /* 內容區 */
         #content-wrapper {
             flex: 1;
             padding: 2rem;
@@ -105,189 +103,106 @@
             padding-left: calc(var(--sidebar-width) + 2rem);
         }
 
-        .main-container {
-            max-width: 960px;
-            margin: 0 auto;
-        }
+        .main-container { max-width: 900px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 6rem; padding-top: 3rem; }
+        h1 { font-size: 2.8rem; background: linear-gradient(135deg, var(--telecom-blue), var(--warning-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1.5rem; font-weight: 800; }
 
-        header {
-            text-align: center;
-            margin-bottom: 6rem;
-            padding-top: 3rem;
-        }
-
-        h1 {
-            font-size: 3.2rem;
-            background: linear-gradient(135deg, var(--telecom-blue), var(--warning-orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 1.5rem;
-            font-weight: 800;
-        }
-
-        /* --- 學術章節卡片 --- */
+        /* 章節卡片 */
         .chapter-card {
             background-color: var(--card-bg);
-            border-radius: 24px;
-            padding: 4rem;
+            border-radius: 20px;
+            padding: 3.5rem;
             margin-bottom: 8rem;
             border: 1px solid #252525;
             box-shadow: 0 30px 60px rgba(0,0,0,0.8);
             position: relative;
-            scroll-margin-top: 100px; /* 防止錨點跳轉被遮擋 */
+            scroll-margin-top: 100px;
         }
         .chapter-card::before {
             content: "";
             position: absolute;
-            top: 0; left: 0; width: 8px; height: 100%;
+            top: 0; left: 0; width: 6px; height: 100%;
             background: linear-gradient(to bottom, var(--telecom-blue), var(--warning-orange));
-            border-radius: 24px 0 0 24px;
+            border-radius: 20px 0 0 20px;
         }
 
-        h2 {
-            color: var(--telecom-blue);
-            margin-bottom: 2rem;
-            font-size: 2.2rem;
-            font-weight: 700;
-            border-bottom: 1px solid #333;
-            padding-bottom: 1rem;
-        }
+        h2 { color: var(--telecom-blue); margin-bottom: 2rem; font-size: 2rem; font-weight: 700; border-bottom: 1px solid #333; padding-bottom: 1rem; }
 
-        /* 專業解答文本區（圖片前） */
-        .academic-response {
-            margin-bottom: 3.5rem;
-        }
-        .academic-response h4 {
-            color: var(--accent-green);
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-transform: uppercase;
-        }
-        .academic-response p {
-            margin-bottom: 1.5rem;
-            font-size: 1.1rem;
-            text-align: justify;
-            color: var(--text-main);
-        }
-        .academic-response ul, .academic-response ol {
-            margin-left: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-muted);
-        }
-        .academic-response li { margin-bottom: 10px; }
-
-        /* 科學視覺化容器 */
-        .figure-box {
-            background: #050505;
-            border: 1px solid #2a2a2a;
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-top: 2rem;
-            text-align: center;
-        }
-        .figure-title {
-            color: var(--warning-orange);
-            font-weight: 700;
-            display: block;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            letter-spacing: 2px;
-        }
-        .figure-box img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-            border: 1px solid #333;
-        }
-        .figure-caption {
-            font-size: 1rem;
-            color: var(--text-muted);
-            text-align: left;
-            line-height: 1.7;
-            border-top: 1px solid #222;
-            padding-top: 1.5rem;
-        }
-
-        .formula-box {
-            background: #1a1a1a;
-            padding: 2.5rem;
-            border-radius: 16px;
-            font-family: 'Times New Roman', serif;
-            color: var(--warning-orange);
-            margin: 2rem 0;
-            text-align: center;
-            font-size: 1.8rem;
-            border: 1px solid #333;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
-        }
-
+        /* 專業解答文本 */
+        .academic-section { margin-bottom: 2.5rem; }
+        .academic-section h4 { color: var(--accent-green); font-size: 1.3rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+        .academic-section p { margin-bottom: 1.5rem; font-size: 1.1rem; text-align: justify; }
         .highlight { color: var(--accent-green); font-weight: bold; }
 
-        /* 諮詢室 */
-        .chat-section {
-            background: #111111;
-            border: 1px solid var(--telecom-blue);
-            padding: 4rem;
-            border-radius: 32px;
-            margin-top: 10rem;
-        }
-        .chat-history {
-            height: 500px;
-            background: #000;
+        /* 精緻動態 SVG 容器 */
+        .physics-animation {
+            background: #080808;
             border-radius: 16px;
-            padding: 2.5rem;
-            overflow-y: auto;
-            margin-bottom: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #222;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
         }
-        .msg { padding: 18px 25px; border-radius: 20px; max-width: 85%; font-size: 1.05rem; }
-        .msg-expert { background: #222; color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; border: 1px solid #333; }
-        .msg-user { background: var(--telecom-blue); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 700; }
-        .chat-input { display: flex; gap: 20px; }
-        input { flex: 1; padding: 18px; border-radius: 14px; border: 1px solid #333; background: #1a1a1a; color: #fff; outline: none; font-size: 1.1rem; }
-        input:focus { border-color: var(--telecom-blue); }
-        button#send-btn { padding: 0 40px; border-radius: 14px; background: var(--telecom-blue); border: none; font-weight: 800; cursor: pointer; transition: 0.3s; }
-        button#send-btn:hover { background: var(--warning-orange); }
+        .physics-animation h5 {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
 
-        @media (max-width: 1200px) {
-            #sidebar { width: 320px; }
+        /* 圖片容器 - 保持獨立一格 */
+        .figure-box { 
+            background: #050505; 
+            border: 1px solid #2a2a2a; 
+            border-radius: 16px; 
+            padding: 2.5rem; 
+            margin: 4rem 0; 
+            text-align: center; 
+            transition: transform 0.3s ease;
         }
-        @media (max-width: 768px) {
-            body:not(.sidebar-collapsed) #content-wrapper { padding-left: 1.5rem; }
-            #sidebar { width: 100%; }
-            .chapter-card { padding: 2rem; }
-            h1 { font-size: 2.4rem; }
-        }
+        .figure-box:hover { transform: translateY(-5px); border-color: #444; }
+        .figure-title { color: var(--warning-orange); font-weight: 700; display: block; margin-bottom: 1.5rem; font-size: 0.95rem; letter-spacing: 2px; }
+        .figure-box img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 2rem; border: 1px solid #333; }
+        .figure-caption { font-size: 0.95rem; color: var(--text-muted); text-align: left; line-height: 1.7; border-top: 1px solid #222; padding-top: 1.5rem; }
+
+        .formula-box { background: #1a1a1a; padding: 2.5rem; border-radius: 16px; font-family: 'Times New Roman', serif; color: var(--warning-orange); margin: 2rem 0; text-align: center; font-size: 1.8rem; border: 1px solid #333; }
+
+        /* 諮詢室 */
+        .chat-section { background: #111111; border: 1px solid var(--telecom-blue); padding: 3rem; border-radius: 32px; margin-top: 10rem; }
+        .chat-history { height: 400px; background: #000; border-radius: 16px; padding: 2rem; overflow-y: auto; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 15px; }
+        .msg { padding: 15px 20px; border-radius: 16px; max-width: 85%; }
+        .msg-expert { background: #222; color: #fff; align-self: flex-start; border-bottom-left-radius: 4px; }
+        .msg-user { background: var(--telecom-blue); color: #000; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 700; }
+        .chat-input { display: flex; gap: 15px; }
+        input { flex: 1; padding: 15px; border-radius: 12px; border: 1px solid #333; background: #1a1a1a; color: #fff; outline: none; }
+        button#send-btn { padding: 0 30px; border-radius: 12px; background: var(--telecom-blue); border: none; font-weight: 800; cursor: pointer; transition: 0.3s; }
     </style>
 </head>
 <body class="sidebar-collapsed">
 
-<!-- 目錄切換 -->
-<button id="toggle-btn" title="開啟/關閉 章節目錄">
+<button id="toggle-btn" title="切換導覽目錄">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
 </button>
 
-<!-- 側邊目錄 -->
-<aside id="sidebar" class="collapsed">
-    <h3>地震學：專業學術導讀</h3>
+<aside id="sidebar">
+    <h3>地震學學術導讀</h3>
     <ul>
-        <li><a href="#id1">1. 研究範疇解構</a></li>
-        <li><a href="#id2">2. 地震實驗與觀測理論</a></li>
-        <li><a href="#id3">3. Hazard 與 Risk 的界定</a></li>
-        <li><a href="#id4">4. 波動能量衰減之物理機制</a></li>
-        <li><a href="#id5">5. 社會防禦與量化數據</a></li>
-        <li><a href="#id6">6. 建築結構與共振反應</a></li>
-        <li><a href="#id7">7. 土壤液化之力學失效</a></li>
-        <li><a href="#id8">8. 預報與預測的科學界線</a></li>
-        <li><a href="#id9">9. 地震空白區 (Seismic Gap)</a></li>
-        <li><a href="#id10">10. 探索中的預測前兆</a></li>
-        <li><a href="#id11">11. 地震學與核武試爆監測</a></li>
+        <li><a href="#s1">1. 地震學研究範疇</a></li>
+        <li><a href="#s2">2. 地震實驗與觀測理論</a></li>
+        <li><a href="#s3">3. Hazard 與 Risk 的界定</a></li>
+        <li><a href="#s4">4. 能量衰減之物理機制</a></li>
+        <li><a href="#s5">5. 社會防禦與量化數據</a></li>
+        <li><a href="#s6">6. 建築結構與共振反應</a></li>
+        <li><a href="#s7">7. 土壤液化之力學失效</a></li>
+        <li><a href="#s8">8. 預報與預測的科學界線</a></li>
+        <li><a href="#s9">9. 地震空白區 (Seismic Gap)</a></li>
+        <li><a href="#s10">10. 探索中的預測前兆</a></li>
+        <li><a href="#s11">11. 地震學與核武監測</a></li>
     </ul>
 </aside>
 
@@ -295,199 +210,366 @@
     <div class="main-container">
         <header>
             <h1>地震學深度探索</h1>
-            <p>Seismology: From Elastic Wave Theory to Social Risk Management</p>
+            <p>Seismology: Analysis of Elastic Media and Social Dynamics</p>
         </header>
 
         <!-- 1. 研究範疇 -->
-        <section class="chapter-card" id="id1">
+        <section class="chapter-card" id="s1">
             <h2>1. 地震學的研究範疇</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：地震學在研究什麼？】</h4>
-                <p>地震學不僅僅是研究斷層錯動所引發的破壞，其核心學術定義是：<span class="highlight">研究固體地球介質中的彈性波傳播</span>。地震波如同地球的「超音波」，是我們在不破壞、不滲透地殼的情況下，獲取地心物理參數（如密度、剪力模數、體積模數）的唯一高解析度手段。</p>
-                <p>其研究範疇橫跨微觀到宏觀：從分析岩石在極高壓下的微小破裂物理，到建立全球尺度的三維地函對流模型；從地震儀開發、地震圖自動識別，到地緣政治中關鍵的核監測技術，地震學是理解動力地球最精密的工具。</p>
+            <div class="academic-section">
+                <h4>【學術問題解答：地震學的本質】</h4>
+                <p>地震學是一門基於<span class="highlight">彈性波動理論 (Elastic Wave Theory)</span> 的探測科學。其核心範疇在於利用彈性波作為探針，進行地底物理特徵的「逆運算反演」。這包含震源破裂動力學、非均勻介質中的波場模擬，以及構建從地殼到地核的高解析度三維結構模型。</p>
+            </div>
+            <div class="physics-animation">
+                <h5>地震波傳遞模型 (Elastic Medium)</h5>
+                <svg width="600" height="80" viewBox="0 0 600 80">
+                    <g id="particles">
+                        <script>
+                            (function() {
+                                const g = document.currentScript.parentElement;
+                                for(let i=0; i<30; i++) {
+                                    let c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                                    c.setAttribute("cx", 20 + i*20);
+                                    c.setAttribute("cy", 40);
+                                    c.setAttribute("r", 3);
+                                    c.setAttribute("fill", "rgba(0, 212, 255, 0.4)");
+                                    let anim = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+                                    anim.setAttribute("attributeName", "cx");
+                                    anim.setAttribute("values", `${20+i*20}; ${20+i*20+15}; ${20+i*20}`);
+                                    anim.setAttribute("dur", "1.5s");
+                                    anim.setAttribute("begin", `${i*0.05}s`);
+                                    anim.setAttribute("repeatCount", "indefinite");
+                                    c.appendChild(anim);
+                                    g.appendChild(c);
+                                }
+                            })();
+                        </script>
+                    </g>
+                    <text x="300" y="75" fill="var(--text-muted)" font-size="10" text-anchor="middle">縱波 (P-wave) 介質壓縮與擴張演示</text>
+                </svg>
             </div>
         </section>
 
         <!-- 2. 地震實驗理論 -->
-        <section class="chapter-card" id="id2">
+        <section class="chapter-card" id="s2">
             <h2>2. 地震實驗與觀測理論</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：如何透過觀測還原地下真相？】</h4>
-                <p>地震觀測的邏輯基礎在於「波路徑反演」。地震儀記錄到的信號是一個複合結果，地震學家必須透過數學手段將「震源機制」、「傳播介質」與「接收器反應」這三者拆解出來。透過分析不同震相（Phases）的走時與能量分布，我們得以定位震源並勾勒地底邊界。</p>
+            <div class="academic-section">
+                <h4>【學術問題解答：波形如何揭示深度？】</h4>
+                <p>地震紀錄 $u(t)$ 是震源 $S(t)$、介質路徑 $G(t)$ 與儀器 $I(t)$ 的複合結果。透過識別特定震相（如核心反射波 ScS），我們能建立地球速度分布模型。根據司乃耳定律，波路徑會因波速隨深度增加而產生向上彎曲的軌跡。</p>
+            </div>
+
+            <div class="physics-animation">
+                <h5>射線折射原理 (Ray Path Refraction)</h5>
+                <svg width="600" height="150" viewBox="0 0 600 150">
+                    <rect x="0" y="0" width="600" height="75" fill="#111" />
+                    <rect x="0" y="75" width="600" height="75" fill="#222" />
+                    <text x="10" y="20" fill="var(--text-muted)" font-size="10">低速層 V1</text>
+                    <text x="10" y="95" fill="var(--text-muted)" font-size="10">高速層 V2</text>
+                    <path d="M100,20 L300,75 L550,130" fill="none" stroke="var(--telecom-blue)" stroke-width="2" stroke-dasharray="5,5">
+                        <animate attributeName="stroke-dashoffset" from="50" to="0" dur="2s" repeatCount="indefinite" />
+                    </path>
+                    <circle cx="100" cy="20" r="5" fill="red" />
+                    <line x1="0" y1="75" x2="600" y2="75" stroke="#444" stroke-width="1" />
+                </svg>
             </div>
 
             <div class="figure-box">
-                <span class="figure-title">圖 1.1-1：地震觀測系統幾何學</span>
+                <span class="figure-title">圖 1.1-1：地震觀測系統基本框架</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20141627.png" alt="圖 1.1-1">
-                <p class="figure-caption"><strong>描述：</strong> 展示地震學的實驗基本模型。信號 $u(t)$ 反映了波源性質與路徑物理性質的綜合信息。分析的核心即在於此信號的卷積分解。</p>
+                <p class="figure-caption">說明：展示地震觀測的核心三組件：震源、介質與接收儀。紀錄信號是這三者反應函數的乘積效果。</p>
             </div>
 
             <div class="figure-box">
-                <span class="figure-title">圖 1.1-2：波徑彎曲與速度模型</span>
+                <span class="figure-title">圖 1.1-2：地球內部波徑彎曲與走時曲線</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20141729.png" alt="圖 1.1-2">
-                <p class="figure-caption"><strong>描述：</strong> 揭示地震波在地球內部的走時規律。因波速隨深度增加，波徑會向地表彎曲，這與司乃耳定律的光學行為完全一致。</p>
+                <p class="figure-caption">說明：地震波因深度增加的速度梯度而向上偏折，形成了非直線的傳播軌跡。</p>
             </div>
 
             <div class="figure-box">
-                <span class="figure-title">圖 1.1-3 & 1.1-4：複雜震相辨識與核心反射</span>
-                <div style="display:flex; gap:15px; flex-wrap:wrap; justify-content:center;">
-                    <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20141740.png" style="max-width:48%" alt="圖 1.1-3">
-                    <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20141747.png" style="max-width:48%" alt="圖 1.1-4">
-                </div>
-                <p class="figure-caption"><strong>描述：</strong> 詳細標記了 ScS 波（地核界面反射波）等深層震相。這些數據讓科學家能精確測量核函邊界（CMB）位於 2891 公里的位置。</p>
+                <span class="figure-title">圖 1.1-3：複雜震相辨識 (A)</span>
+                <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20141740.png" alt="圖 1.1-3">
+                <p class="figure-caption">說明：詳細解析首達 P 波、S 波與表面波的抵達時間，是定位震央的依據。</p>
             </div>
 
             <div class="figure-box">
-                <span class="figure-title">圖 1.1-5：人工震源反射地震探勘</span>
+                <span class="figure-title">圖 1.1-4：核心反射震相解析 (B)</span>
+                <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20141747.png" alt="圖 1.1-4">
+                <p class="figure-caption">說明：展示了在核函邊界（CMB）反射的特殊波相，讓我們能精確測量地球核心的深度。</p>
+            </div>
+
+            <div class="figure-box">
+                <span class="figure-title">圖 1.1-5：人工反射地震探勘</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20141808.png" alt="圖 1.1-5">
-                <p class="figure-caption"><strong>描述：</strong> 展示地震學在石油探勘中的實務應用。利用受控人工爆炸波在淺層地殼地層界面的反射來定位資源儲集層。</p>
+                <p class="figure-caption">說明：展示地震學在能源產業中的應用，利用人工高頻震波描繪沉積層結構。</p>
             </div>
         </section>
 
         <!-- 3. Hazard vs Risk -->
-        <section class="chapter-card" id="id3">
+        <section class="chapter-card" id="s3">
             <h2>3. Seismic Hazard 與 Seismic Risk 的界定</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：兩者如何影響決策？】</h4>
-                <p>地震學家對災害的界定極為嚴謹。<strong>Seismic Hazard（地震災害）</strong> 是自然賦予的物理事實。某區域發震頻率的高低、潛在斷層的最大錯動量、特定時間內發生強震的機率，這些都屬於 Hazard，它是<span class="highlight">不可被人類操控的地質環境參數</span>。</p>
-                <p><strong>Seismic Risk（地震風險）</strong> 則是「人為損失」的量化評估。風險取決於災害、建築脆弱性（Vulnerability）與受災物價值（Exposure）。我們可以透過耐震補強降低脆弱性，進而降低風險；但無論我們做多少工程，地震災害（Hazard）本身的機率不會因此減少。</p>
+            <div class="academic-section">
+                <h4>【學術問題解答：自然的威脅與社會的損失】</h4>
+                <p><strong>Seismic Hazard (地震災害)</strong> 是自然賦予的物理威脅，如地表加速度 PGA 的分佈。這是不可操控的物理事實。而 <strong>Seismic Risk (地震風險)</strong> 是社會預期損失，其數學式為：<span class="highlight">Risk = Hazard × Vulnerability × Exposure</span>。</p>
             </div>
         </section>
 
-        <!-- 4. 公式解析 -->
-        <section class="chapter-card" id="id4">
-            <h2>4. 地震波能量衰減之物理機制</h2>
+        <!-- 4. 能量衰減 -->
+        <section class="chapter-card" id="s4">
+            <h2>4. 能量衰減之物理機制與公式解析</h2>
             <div class="formula-box">a(M, r) = b \cdot 10^{cM} \cdot r^{-d}</div>
-            <div class="academic-response">
-                <h4>【學術問題解答：為何波動會隨距離消失？】</h4>
-                <p>公式中的指數衰減反映了物理世界的侷限。地震波能量在傳遞過程中衰減主要來自三大原因：</p>
-                <ol>
-                    <li><strong>幾何擴散 (Geometric Spreading)：</strong> 最關鍵的因素。波前隨距離以球面形式擴張，能量密度按半徑平方的比例迅速稀釋。</li>
-                    <li><strong>介質散射 (Scattering)：</strong> 地殼內部並非均勻固體，存在大量裂隙與不連續面，導致波動能量向非主路徑方向散射。</li>
-                    <li><strong>內在耗散 (Intrinsic Attenuation)：</strong> 岩石分子的非彈性摩擦將動能轉化為不可逆的熱能，這在鬆散砂層中尤為強烈。</li>
-                </ol>
+            <div class="academic-section">
+                <h4>【學術問題解答：能量為何在傳遞中消失？】</h4>
+                <p>能量損失源於：<span class="highlight">幾何擴散</span>（能量隨距離平方稀釋）、<span class="highlight">介質散射</span>（地底不均勻裂隙反射）與 <span class="highlight">內在衰減</span>（岩石摩擦生熱）。</p>
+            </div>
+            <!-- 自動動態衰減動畫 -->
+            <div class="physics-animation">
+                <h5>波幅衰減實時演示 (Dynamic Attenuation)</h5>
+                <svg width="600" height="100" viewBox="0 0 600 100" id="attenuationSvg">
+                    <path d="M0,50 L600,50" stroke="#222" stroke-width="1" />
+                    <path id="dynamicWavePath" d="" fill="none" stroke="var(--telecom-blue)" stroke-width="3" />
+                    <circle id="waveHeader" cx="0" cy="50" r="5" fill="var(--warning-orange)" />
+                    <script>
+                        (function() {
+                            const path = document.getElementById('dynamicWavePath');
+                            const circle = document.getElementById('waveHeader');
+                            let time = 0;
+                            function animateWave() {
+                                time += 0.15;
+                                let d = "M 0 50";
+                                for(let x=0; x<=600; x+=2) {
+                                    let amp = 40 * Math.exp(-x/220); 
+                                    let y = 50 + amp * Math.sin(x/15 - time);
+                                    d += ` L ${x} ${y}`;
+                                    if(x === 0) circle.setAttribute('cy', y);
+                                }
+                                path.setAttribute('d', d);
+                                requestAnimationFrame(animateWave);
+                            }
+                            animateWave();
+                        })();
+                    </script>
+                </svg>
+                <text fill="var(--text-muted)" font-size="10" style="margin-top:10px;">物理模擬：振幅隨傳播距離 $(r)$ 呈指數級遞減</text>
             </div>
         </section>
 
         <!-- 5. 社會防禦數據 -->
-        <section class="chapter-card" id="id5">
+        <section class="chapter-card" id="s5">
             <h2>5. 社會防禦數據解析</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：數據如何轉化為安全？】</h4>
-                <p>透過統計歷次地震的破壞情形，科學家能繪製出機率危害圖與建築損壞曲線。這些數據是城市規劃、抗震設計係數以及保險精算的科學靈魂。它們將不可見的地底運動轉化為可見的預算分配指標。</p>
+            <div class="academic-section">
+                <h4>【學術問題解答：量化數據與安全規範】</h4>
+                <p>透過統計歷次震損，我們能量化地質硬度對震波傳導的影響（美東 vs 美西差異），並據此制定建築耐震係數標準。</p>
             </div>
-
+            
             <div class="figure-box">
                 <span class="figure-title">圖 1.2-3：區域機率性地震危害圖 (PSHA)</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20142039.png" alt="圖 1.2-3">
-                <p class="figure-caption"><strong>描述：</strong> 展示特定地區在 50 年內達到特定震動強度的機率分佈，是國家耐震法規修訂的基本盤數據。</p>
+                <p class="figure-caption">說明：計算特定區域在 50 年內發生強烈震動的統計機率，是法規修訂的依據。</p>
             </div>
 
             <div class="figure-box">
                 <span class="figure-title">圖 1.2-5：區域衰減特性對比 (美東 vs 美西)</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20142105.png" alt="圖 1.2-5">
-                <p class="figure-caption"><strong>描述：</strong> 揭示地殼硬度對波傳導的劇烈影響。老舊穩定的美東地殼讓波動能量傳播範圍顯著大於構造破碎的美西。</p>
+                <p class="figure-caption">說明：展示老舊地盾區（東部）與破碎斷層區（西部）在能量傳導上的顯著差異。</p>
             </div>
 
             <div class="figure-box">
                 <span class="figure-title">圖 1.2-6：不同建材之倒塌脆弱性曲線</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20142111.png" alt="圖 1.2-6">
-                <p class="figure-caption"><strong>描述：</strong> 量化證據顯示：在相同強震下，韌性設計（RC）能顯著降低損毀率，磚造結構則呈現指數級的危險性增長。</p>
+                <p class="figure-caption">說明：量化證據顯示韌性結構在大震下的安全性優勢。</p>
             </div>
         </section>
 
         <!-- 6. 建築反應 -->
-        <section class="chapter-card" id="id6">
+        <section class="chapter-card" id="s6">
             <h2>6. 建築結構與高度之物理共振反應</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：為何地震對建築具有選擇性？】</h4>
-                <p>地震對建築的威脅取決於物理上的「週期匹配」。鋼筋混凝土 (RC) 結構具備優異的<span class="highlight">延展性 (Ductility)</span>，能在大震中發生受控的變形來消耗能量；磚造結構則屬於脆性失效，容錯率極低。</p>
-                <p>此外，每一棟建築都有其固有週期（與高度成正比）。當地震波的主頻率剛好對上建築週期時，會引發毀滅性的<strong>共振現象 (Resonance)</strong>。這就是為什麼特定樓層高度的大樓會崩潰，而周遭更高或更矮的樓房卻可能毫髮無傷的科學原因。</p>
+            <div class="academic-section">
+                <h4>【學術問題解答：共振與延展性】</h4>
+                <p>建築損壞取決於其固有週期是否與震波頻率耦合。RC 結構具備延展性能透過變形耗散能量，避免共振崩解。</p>
+            </div>
+            <div class="physics-animation">
+                <h5>頻率共振模擬 (Resonance Effects)</h5>
+                <svg width="600" height="150" viewBox="0 0 600 150">
+                    <rect x="0" y="130" width="600" height="20" fill="#333" />
+                    <rect x="100" y="100" width="30" height="30" fill="var(--text-muted)">
+                        <animateTransform attributeName="transform" type="translate" values="-2,0; 2,0; -2,0" dur="0.2s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="280" y="60" width="40" height="70" fill="var(--warning-orange)">
+                        <animateTransform attributeName="transform" type="rotate" values="-3 300 130; 3 300 130; -3 300 130" dur="1s" repeatCount="indefinite" />
+                    </rect>
+                    <rect x="470" y="20" width="40" height="110" fill="var(--text-muted)">
+                        <animateTransform attributeName="transform" type="rotate" values="-1 490 130; 1 490 130; -1 490 130" dur="3s" repeatCount="indefinite" />
+                    </rect>
+                    <text x="300" y="145" fill="var(--warning-orange)" font-size="9" text-anchor="middle">特定高度與頻率產生共振</text>
+                </svg>
             </div>
         </section>
 
         <!-- 7. 土壤液化 -->
-        <section class="chapter-card" id="id7">
+        <section class="chapter-card" id="s7">
             <h2>7. 土壤液化的力學失效機制</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：土地為何會變成泥漿？】</h4>
-                <p>土壤液化是力學平衡被打破的結果。在飽和水分的疏鬆砂層中，砂粒原本透過彼此間的摩擦力（有效應力）支撐荷重。當強烈地震發生時，劇烈搖晃使砂粒試圖重新排列，進而排擠孔隙間的水分。由於水分無法及時排出，導致<strong>孔隙水壓（Pore Water Pressure）</strong>急遽升高。當水壓達到與上覆荷重相等時，砂粒間的摩擦力歸零，土地瞬間表現出流體特徵，導致建築下陷與噴砂現象。</p>
+            <div class="academic-section">
+                <h4>【學術問題解答：孔隙水壓的作用】</h4>
+                <p>強烈震動排擠孔隙水，導致孔隙水壓上升。當水壓等於荷重時，有效應力歸零，砂粒懸浮，土地轉化為流體，導致建築失穩。</p>
+            </div>
+            <div class="physics-animation">
+                <h5>液化微觀模型 (Soil Liquefaction)</h5>
+                <svg width="400" height="120" viewBox="0 0 400 120">
+                    <rect x="0" y="0" width="400" height="120" fill="#001a33" />
+                    <g id="sand">
+                        <script>
+                            (function() {
+                                const sandG = document.currentScript.parentElement;
+                                for(let i=0; i<60; i++){
+                                    let c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+                                    c.setAttribute("cx", Math.random()*380 + 10);
+                                    c.setAttribute("cy", Math.random()*100 + 10);
+                                    c.setAttribute("r", 3);
+                                    c.setAttribute("fill", "#d4af37");
+                                    let a = document.createElementNS("http://www.w3.org/2000/svg", "animate");
+                                    a.setAttribute("attributeName", "cy");
+                                    a.setAttribute("values", "100; 20; 100");
+                                    a.setAttribute("dur", (Math.random()*2+1)+"s");
+                                    a.setAttribute("repeatCount", "indefinite");
+                                    c.appendChild(a);
+                                    sandG.appendChild(c);
+                                }
+                            })();
+                        </script>
+                    </g>
+                </svg>
             </div>
         </section>
 
-        <!-- 8. 預報 vs 預測 -->
-        <section class="chapter-card" id="id8">
+        <!-- 8. 預報與預測 -->
+        <section class="chapter-card" id="s8">
             <h2>8. 地震預報 (Forecasting) vs 地震預測 (Prediction)</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：為何短期預測依然遙不可及？】</h4>
-                <p>兩者在科學嚴謹度上有著本質差異：</p>
-                <ul>
-                    <li><strong>地震預報 (Forecasting)：</strong> 屬於機率科學，給出長時間、大尺度的發震百分比。這是目前防災政策的核心基礎。</li>
-                    <li><strong>地震預測 (Prediction)：</strong> 屬於決定論科學，要求精準界定時、地、級。由於地殼系統具備極高的非線性與混沌特性，<span class="highlight">目前科學界公認精準預測是不可能的目標</span>。</li>
-                </ul>
+            <div class="academic-section">
+                <h4>【學術問題解答：統計機率與確切三要素】</h4>
+                <p>地震預報基於統計機率；預測追求確切時地級。目前公認精確預測為不可能任務。</p>
             </div>
             <div class="figure-box">
-                <span class="figure-title">圖 1.2-14：地震危害建模的高度不確定性</span>
+                <span class="figure-title">圖 1.2-14：地震危害建模的不確定性</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20142154.png" alt="圖 1.2-14">
-                <p class="figure-caption"><strong>描述：</strong> 展示對於同一個震區（新馬德里），不同科學假設產生的危害預估差異巨大，凸顯了地震學預警系統面臨的建模挑戰。</p>
+                <p class="figure-caption">說明：針對新馬德里震區，不同模型的估算差距顯著，印證了預報學的挑戰。</p>
             </div>
         </section>
 
         <!-- 9. Seismic Gap -->
-        <section class="chapter-card" id="id9">
-            <h2>9. 地震空白區 (Seismic Gap) 的理論及其驗證</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：安靜的地方最危險？】</h4>
-                <p>根據「彈性回跳理論」，一條活曜的斷層帶中，若某一區段長年保持靜默，則該處累積的彈性能可能已接近破裂閾值。這些「被卡住」的段落被稱為<strong>地震空白區（Seismic Gap）</strong>，通常被視為下一次強震發生的熱點。這是一種空間尺度上的機率預估。</p>
+        <section class="chapter-card" id="s9">
+            <h2>9. 地震空白區 (Seismic Gap) 理論及其驗證</h2>
+            <div class="academic-section">
+                <h4>【學術問題解答：應力鎖定的指示標】</h4>
+                <p>長期安靜的斷層段蓄積能量最多。地震空白區通常預示著未來強震的高風險潛勢。</p>
             </div>
-
             <div class="figure-box">
-                <span class="figure-title">圖 1.2-15：古地震序列之週期不對稱性</span>
+                <span class="figure-title">圖 1.2-15：古地震不規律時間序列</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20142204.png" alt="圖 1.2-15">
-                <p class="figure-caption"><strong>描述：</strong> 揭示地震發生的時間分佈呈現不均勻的特徵。這種隨機性使得單純的週期性預測模式在現實中往往失效。</p>
+                <p class="figure-caption">說明：挖掘紀錄顯示地震週期並非等間隔，存在隨機性。</p>
             </div>
-
             <div class="figure-box">
-                <span class="figure-title">圖 1.2-16：Loma Prieta 地震空白區填補案例</span>
+                <span class="figure-title">圖 1.2-16：Loma Prieta 空白填補實證</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20142219.png" alt="圖 1.2-16">
-                <p class="figure-caption"><strong>描述：</strong> 1989 年強震精準發生在斷層原本最靜默的「空白處」，成功驗證了 Seismic Gap 假說對於評估強震風險的實證價值。</p>
+                <p class="figure-caption">說明：1989 年強震發生在斷層原本最靜默的「空白處」，驗證了理論。</p>
             </div>
         </section>
 
         <!-- 10. 預測前兆 -->
-        <section class="chapter-card" id="id10">
+        <section class="chapter-card" id="s10">
             <h2>10. 目前科學界探索中的預測前兆路徑</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：大地震真的有前兆嗎？】</h4>
-                <p>雖然精確預測極難，但我們正嘗試追蹤地下多維度的物理信號：</p>
-                <ul>
-                    <li><strong>大地測量：</strong> 利用 GPS 與 InSAR 技術監測斷層兩側的微小應變累積。</li>
-                    <li><strong>地球化學前兆：</strong> 監測地下水中氡氣含量的突發變化（岩石微裂隙擴張時逸出）。</li>
-                    <li><strong>前震追蹤：</strong> 分析主震前的微小群震模式，嘗試找出規律。</li>
-                    <li><strong>電磁擾動：</strong> 觀測岩石受壓引發的局部電離層干擾。</li>
-                </ul>
-                <p><span class="highlight">遺憾的是：</span> 這些前兆在不同地震中缺乏絕對的規律性，目前科學界仍無法將其作為可靠的預警判準。</p>
+            <div class="academic-section">
+                <h4>【學術問題解答：多維物理指標監測】</h4>
+                <p>科學家正監測大地形變、地下氡氣與電磁擾動，但目前仍面臨不可重複性的科學難題。</p>
             </div>
         </section>
 
         <!-- 11. 核監測 -->
-        <section class="chapter-card" id="id11">
-            <h2>11. 地震學在核子試爆監測中的關鍵應用</h2>
-            <div class="academic-response">
-                <h4>【學術問題解答：如何識破秘密地底核爆？】</h4>
-                <p>地震學家在維護國際禁止核試條約（CTBT）中扮演警察。我們利用「波形指紋」區分震動來源。核爆是純粹的點源向外擴張，產生的 P 波極強且初動方向一致向上，但幾乎不產生橫向剪切的 S 波。相對地，自然地震是斷層兩側的剪力滑動，會產生豐富的 S 波。利用 mb (體波級數) 與 Ms (表面波級數) 的比值，我們能精準區分震動的真偽。</p>
+        <section class="chapter-card" id="s11">
+            <h2>11. 地震學在核子試爆監測中的應用</h2>
+            <div class="academic-section">
+                <h4>【學術問題解答：波形指紋與當量推算】</h4>
+                <p>利用 mb (體波) 與 Ms (表面波) 的能量比值識破祕密核試。核爆產生強 P 波但幾乎無 S 波。地震學家透過「波形指紋」技術，能有效區分出秘密試爆信號。</p>
+            </div>
+            
+            <!-- 精緻化波形指紋動畫 -->
+            <div class="physics-animation">
+                <h5>高階波形指紋即時鑑定模擬 (Waveform Fingerprint Analysis)</h5>
+                <svg width="720" height="200" viewBox="0 0 720 200" id="fingerprintSvg" style="background:#050505; border-radius:12px;">
+                    <!-- 背景網格 -->
+                    <defs>
+                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#111" stroke-width="1"/>
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#grid)" />
+                    
+                    <!-- 時間標線 -->
+                    <line x1="360" y1="20" x2="360" y2="180" stroke="#222" stroke-dasharray="4" />
+                    
+                    <!-- 核爆波形路徑 -->
+                    <path id="nuclearWave" fill="none" stroke="#ff3333" stroke-width="2.5" filter="drop-shadow(0 0 5px #ff3333)" />
+                    <!-- 地震波形路徑 -->
+                    <path id="seismicWave" fill="none" stroke="var(--telecom-blue)" stroke-width="2.5" filter="drop-shadow(0 0 5px var(--telecom-blue))" />
+                    
+                    <!-- 文字標註 -->
+                    <text x="50" y="40" fill="#ff3333" font-size="12" font-weight="bold">NUCLEAR: Sharp P / No S</text>
+                    <text x="50" y="140" fill="var(--telecom-blue)" font-size="12" font-weight="bold">EARTHQUAKE: Moderate P / Strong S</text>
+                    
+                    <script>
+                        (function() {
+                            const nPath = document.getElementById('nuclearWave');
+                            const sPath = document.getElementById('seismicWave');
+                            let offset = 0;
+
+                            function updateFingerprint() {
+                                offset += 0.05;
+                                let nD = "M 50 60";
+                                let sD = "M 50 160";
+                                
+                                for(let x=50; x<680; x+=2) {
+                                    // 核爆模擬: 一個極強的起始脈衝，快速衰減到靜止
+                                    let nAmp = 0;
+                                    if (x < 150) {
+                                        nAmp = 60 * Math.exp(-(x-50)/15) * Math.sin((x-50)*0.8 - offset*10);
+                                    } else {
+                                        nAmp = 1 * Math.sin(x*0.1 - offset*2); // 剩餘背景微動
+                                    }
+                                    nD += ` L ${x} ${60 + nAmp}`;
+
+                                    // 地震模擬: 較小的P波前導，隨後是巨大的S波包
+                                    let sAmp = 0;
+                                    let pWave = 8 * Math.exp(-(x-50)/80) * Math.sin((x-50)*0.5 - offset*8);
+                                    let sWave = 0;
+                                    if (x > 250) {
+                                        sWave = 45 * Math.exp(-(x-250)/150) * Math.sin((x-250)*0.15 - offset*5);
+                                    }
+                                    sAmp = pWave + sWave;
+                                    sD += ` L ${x} ${160 + sAmp}`;
+                                }
+                                nPath.setAttribute('d', nD);
+                                sPath.setAttribute('d', sD);
+                                requestAnimationFrame(updateFingerprint);
+                            }
+                            updateFingerprint();
+                        })();
+                    </script>
+                </svg>
+                <div style="display:flex; justify-content: space-around; width:100%; margin-top:15px;">
+                    <div style="color:#ff3333; font-size:11px;">$m_b$ (體波) > $M_s$ (表面波)</div>
+                    <div style="color:var(--telecom-blue); font-size:11px;">$M_s$ (表面波) $\approx$ $m_b$ (體波)</div>
+                </div>
             </div>
 
             <div class="figure-box">
-                <span class="figure-title">圖 1.2-18：體波震級與爆炸能量之關係</span>
+                <span class="figure-title">圖 1.2-18：當量推算模型</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20142258.png" alt="圖 1.2-18">
-                <p class="figure-caption"><strong>描述：</strong> 展示如何利用 mb 級數準確推算爆炸產生的能量總值（當量），是全球核試防線的量化工具。</p>
+                <p class="figure-caption">說明：利用體波震級推估地下爆炸釋放的總能量。</p>
             </div>
 
             <div class="figure-box">
-                <span class="figure-title">圖 1.2-19：地震 vs 爆炸之波形鑑定特徵</span>
+                <span class="figure-title">圖 1.2-19：地震 vs 爆炸鑑定指紋</span>
                 <img src="https://github.com/utels2425-beep/114-2HW2/raw/main/docs/%E8%9E%A2%E5%B9%95%E6%93%B7%E5%8F%96%E7%95%AB%E9%9D%A2%202026-03-05%20142310.png" alt="圖 1.2-19">
-                <p class="figure-caption"><strong>描述：</strong> 爆炸產生強烈壓縮 P 波但幾乎無 S 波；地震具備顯著剪切 S 波特徵。這是區分秘密試爆的最核心技術準則。</p>
+                <p class="figure-caption">說明：展示兩者在剪力波成分上的本質差異，作為條約核查的基石。</p>
             </div>
         </section>
 
@@ -496,7 +578,7 @@
             <h2>🎓 地震學專家深度諮詢室</h2>
             <div class="chat-history" id="chat-hist">
                 <div class="msg msg-expert">
-                    你好！我是資深地震學家。關於這 11 個主題的物理機制或社會應用，我已經強化了知識大腦。你可以試著問我：「為什麼核爆不產生 S 波？」、「孔隙水壓具體是如何導致液化的？」或詢問特定圖表的細節。
+                    你好！我是資深地震學家。每一張圖表與物理動畫背後都有嚴謹的方程支撐。
                 </div>
             </div>
             <div class="chat-input">
@@ -508,49 +590,24 @@
 </div>
 
 <script>
-    // --- 目錄切換與自動收合 ---
     const toggleBtn = document.getElementById('toggle-btn');
-    const sidebar = document.getElementById('sidebar');
-    const body = document.body;
-    const links = document.querySelectorAll('#sidebar a');
-
     toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-        body.classList.toggle('sidebar-collapsed');
+        document.body.classList.toggle('sidebar-collapsed');
     });
 
-    // 點擊連結後，在手機版自動關閉
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth < 1024) {
-                sidebar.classList.add('collapsed');
-                body.classList.add('sidebar-collapsed');
-            }
-        });
-    });
-
-    // --- 專業知識庫與諮詢引擎 ---
     const seismicBrain = [
-        { keywords: ['範疇', '定義'], response: "地震學本質是研究『固體地球介質中的彈性波傳播』。它讓我們能透過地表觀測來透視數千公里深的地底性質。" },
-        { keywords: ['觀測', '1.1-1', '1.1-2', '1.1-3', '1.1-4', '1.1-5', '走時'], response: "圖 1.1 系列建立了觀測基石：1.1-1 定義了系統框架；1.1-2 解釋路徑彎曲；1.1-3/4 展示震相紀錄；1.1-5 是商業資源探勘的應用。" },
-        { keywords: ['hazard', 'risk', '災害', '風險', '區別'], response: "Seismic Hazard 是不可改變的地質事實；而 Seismic Risk 是預期損失。我們可以透過工程強化降低 Risk，但無法消除 Hazard。" },
-        { keywords: ['公式', '衰減', '原因'], response: "能量衰減源自：幾何擴散（能量稀釋）、散射衰減（介質不均勻）以及內在耗散（摩擦生熱）。" },
-        { keywords: ['數據', '1.2-3', '1.2-5', '1.2-6', '危害圖', '東西部'], response: "圖 1.2 系列提供數據依據：1.2-3 是耐震設計基礎；1.2-5 顯現硬地層傳播效率；1.2-6 證明了 RC 結構的安全性優勢。" },
-        { keywords: ['建材', '高度', '共振', '週期', 'RC'], response: "建築安全取決於週期匹配。建築週期若與地震頻率共振，擺幅會極遽擴大。RC 結構具備韌性能吸收能量，比磚造更安全。" },
-        { keywords: ['液化', '孔隙', '水壓', '成因'], response: "液化的物理本質是有效應力的喪失。震動使孔隙水壓升高並抵消砂粒摩擦力，土地瞬間喪失承載力。" },
-        { keywords: ['預報', '預測', '不同', '不可能'], response: "預報是給出統計機率，預測要求精準時地。目前因系統的混沌特性，短期精確預測仍是不可能的目標。" },
-        { keywords: ['空白區', 'gap', '1.2-15', '1.2-16'], response: "Seismic Gap 假說認為長期安靜區蓄積最多應力。1.2-16 的 1989 年強震填補了靜默段，驗證了空間預測的價值。" },
-        { keywords: ['前兆', '前震', '氡氣', 'GPS'], response: "目前探索監測前震、大地形變速率、氡氣逸出與電磁擾動，但目前尚無任何一種前兆具備絕對可重複性。" },
-        { keywords: ['核', '爆炸', '試爆', 'mb', 'Ms', '1.2-19'], response: "這是地震波形鑑定。爆炸是球對稱壓縮，僅產生強 P 波；地震是滑動，S 波豐富。利用 mb/Ms 比值可識破秘密核試。" }
+        { keywords: ['範疇', '定義'], response: "地震學本質是研究『固體地球介質中的彈性波傳播』，利用波動反演技術透視地底參數。" },
+        { keywords: ['hazard', 'risk'], response: "Hazard 是自然的物理威脅，不可改變；Risk 是預期損失，可透過工程手段降低。" },
+        { keywords: ['衰減', '消失'], response: "衰減源自：幾何擴散（能量稀釋）、散射衰減（介質不均勻）與內在耗散（摩擦生熱）。" },
+        { keywords: ['核', '爆炸'], response: "核爆是球對稱壓縮（P波主導），地震是剪力滑動（S波豐富）。利用 Ms/mb 比值可識破地下核試。" }
     ];
 
-    const inputField = document.getElementById('user-in');
-    const sendBtn = document.getElementById('send-btn');
-    const hist = document.getElementById('chat-hist');
-
     function sendMsg() {
+        const inputField = document.getElementById('user-in');
+        const hist = document.getElementById('chat-hist');
         const val = inputField.value.trim();
         if(!val) return;
+        
         const uMsg = document.createElement('div');
         uMsg.className = 'msg msg-user';
         uMsg.innerHTML = val;
@@ -560,7 +617,7 @@
         setTimeout(() => {
             const eMsg = document.createElement('div');
             eMsg.className = 'msg msg-expert';
-            let reply = "這是一個非常專業的學術問題。在地震學模型中，這涉及到波動力學或地質風險管理的交互作用。您可以試著問得更具體，例如關於『孔隙水壓如何具體影響有效應力』或『mb 與 Ms 在核監測中的比值含義』。";
+            let reply = "這是一個非常專業的學術問題。您可以嘗試問得更具體，例如關於『孔隙水壓對有效應力的影響』或『mb/Ms 比值在核監測中的物理意義』。";
             for(let item of seismicBrain) {
                 if(item.keywords.some(key => val.toLowerCase().includes(key.toLowerCase()))) {
                     reply = item.response; break;
@@ -571,8 +628,9 @@
             hist.scrollTop = hist.scrollHeight;
         }, 600);
     }
-    sendBtn.onclick = sendMsg;
-    inputField.onkeypress = (e) => { if(e.key === 'Enter') sendMsg(); };
+
+    document.getElementById('send-btn').onclick = sendMsg;
+    document.getElementById('user-in').onkeypress = (e) => { if(e.key === 'Enter') sendMsg(); };
 </script>
 
 </body>
